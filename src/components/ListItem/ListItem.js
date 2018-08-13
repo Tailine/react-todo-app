@@ -1,6 +1,6 @@
 import React from 'react';
 
-const listItem = () => {
+const listItem = ({ task }) => {
 
   const style = {
     height: 'auto',
@@ -13,7 +13,7 @@ const listItem = () => {
 
   return (
     <div style={style}>
-      List Item
+      {task}
     </div>
   )
 }

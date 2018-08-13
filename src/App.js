@@ -12,31 +12,42 @@ class App extends Component {
     // }
   state = {
     value: '',
-    todos: [
-      {id: 0, task: 'Limpar casa'},
-      {id: 1, task: 'Estudar'},
-      {id: 2, task: 'Fazer mercado'},
-    ],
+    todos: [],
+    nextId: 0,
   }
 
   addToDo = () => {
-    console.log(this.state.value)
+    const newTodo = this.state.value;
+    const todosArray = [...this.state.todos];
+    todosArray.push({id: this.state.nextId, task: newTodo});
+    this.setState({todos: todosArray})
+    this.updateNextId();
   }
 
   updateInputValue = (evt) => {
     this.setState({value: evt.target.value});
   }
 
+  updateNextId = () => {  // update next id
+    this.setState((prevState) => {
+      return {nextId: prevState.nextId + 1}
+    })
+  }
+
   render() {
+
+    const {todos} = this.state;
+
+    const todoList = todos.map((todo) => {
+      return <ListItem key={todo.id} task={todo.task} />
+    })
 
     return(
       <div className="App">
         <h1>React To-do List</h1>
         <div>
           <AddItems addToDo={this.addToDo} updateInputValue={this.updateInputValue} />
-          <ListItem />
-          <ListItem />
-          <ListItem />
+          {todoList}
         {/* <ToDoList />  */}
         </div>
       </div>
