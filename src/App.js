@@ -24,17 +24,14 @@ class App extends Component {
     this.updateNextId();
   }
 
-  deleteToDo = (evt) => {
-    
-    const index = evt.target.parentElement.id;
-    const todos = [...this.state.todos]; 
-    const todoItem = todos.find((item) => item.id === index);
-    const updatedTodo = todos.filter((todo) => {
-      return todo !== todoItem;
+  deleteToDo = (evt) => {    
+    const itemIndex = Number(evt.target.parentElement.id);
+    const todos = [...this.state.todos];
+    const updatedList = todos.filter((todo) => {
+      return todo.id !== itemIndex;
     })
-    console.log(todoItem)
     this.setState(() => {
-      return { todos: updatedTodo };
+      return { todos: updatedList };
     })
   }
 
