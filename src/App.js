@@ -24,6 +24,20 @@ class App extends Component {
     this.updateNextId();
   }
 
+  deleteToDo = (evt) => {
+    
+    const index = evt.target.parentElement.id;
+    const todos = [...this.state.todos]; 
+    const todoItem = todos.find((item) => item.id === index);
+    const updatedTodo = todos.filter((todo) => {
+      return todo !== todoItem;
+    })
+    console.log(todoItem)
+    this.setState(() => {
+      return { todos: updatedTodo };
+    })
+  }
+
   updateInputValue = (evt) => {
     this.setState({value: evt.target.value});
   }
@@ -39,9 +53,9 @@ class App extends Component {
     const {todos} = this.state;
 
     const todoList = todos.map((todo) => {
-      return <ListItem key={todo.id} task={todo.task} />
+      return <ListItem key={todo.id} task={todo.task} deleteToDo={this.deleteToDo} id={todo.id} />
     })
-
+    
     return(
       <div className="App">
         <h1>React To-do List</h1>
