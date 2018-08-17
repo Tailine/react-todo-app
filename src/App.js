@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import ListItem from './components/ListItem/ListItem';
+import List from './components/List/List';
 import AddItems from './components/AddItems/AddItems';
-import './App.css';
+import classes from './App.css';
 
 class App extends Component {
-// const style = {
-    //   border: '2px solid black',
-    //   height: 'auto',
-    //   widht: '50%',
-    //   margin: '0 auto',
-    // }
+  
   state = {
     value: '',
     todos: [],
@@ -22,16 +17,15 @@ class App extends Component {
     todosArray.push({id: this.state.nextId, task: newTodo});
     this.setState({todos: todosArray})
     this.updateNextId();
+    this.cleanInput();
+    console.log(this.state.value)
   }
 
-  deleteToDo = (evt) => {    
-    const itemIndex = Number(evt.target.parentElement.id);
+  deleteToDo = (index) => {    
     const todos = [...this.state.todos];
-    const updatedList = todos.filter((todo) => {
-      return todo.id !== itemIndex;
-    })
+    todos.splice(index, 1);
     this.setState(() => {
-      return { todos: updatedList };
+      return { todos: todos };
     })
   }
 
@@ -45,21 +39,24 @@ class App extends Component {
     })
   }
 
+  cleanInput = () => {  // clean input 
+    this.setState(() => {
+      return {value: ''}
+    })
+  }
+
   render() {
 
     const {todos} = this.state;
 
-    const todoList = todos.map((todo) => {
-      return <ListItem key={todo.id} task={todo.task} deleteToDo={this.deleteToDo} id={todo.id} />
-    })
-    
+    const todoList = <List todos={todos} deleteToDo={this.deleteToDo} />
+
     return(
-      <div className="App">
-        <h1>React To-do List</h1>
+      <div className={classes.App}>
+        <h1 className={classes.title}>React To-do List</h1>
         <div>
-          <AddItems addToDo={this.addToDo} updateInputValue={this.updateInputValue} />
+          <AddItems addToDo={this.addToDo} updateInputValue={this.updateInputValue} value={this.state.value} />
           {todoList}
-        {/* <ToDoList />  */}
         </div>
       </div>
     )
