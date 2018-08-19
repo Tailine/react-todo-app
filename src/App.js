@@ -13,7 +13,7 @@ class App extends Component {
 
   validateInput = () => {
     if(!this.state.value) {
-      alert('Favor inserir to-do');
+      alert('Please enter a to-do.');
     } else {
       this.addToDo();
     }
