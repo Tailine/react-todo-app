@@ -11,6 +11,14 @@ class App extends Component {
     nextId: 0,
   }
 
+  validateInput = () => {
+    if(!this.state.value) {
+      alert('Favor inserir to-do');
+    } else {
+      this.addToDo();
+    }
+  }
+
   addToDo = () => {
     const newTodo = this.state.value;
     const todosArray = [...this.state.todos];
@@ -55,7 +63,7 @@ class App extends Component {
       <div className={classes.App}>
         <h1 className={classes.title}>React To-do List</h1>
         <div>
-          <AddItems addToDo={this.addToDo} updateInputValue={this.updateInputValue} value={this.state.value} />
+          <AddItems validateInput={this.validateInput} updateInputValue={this.updateInputValue} value={this.state.value} />
           {todoList}
         </div>
       </div>

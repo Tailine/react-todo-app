@@ -1,12 +1,12 @@
 import React from 'react';
 import classes from './AddItems.css';
 
-const addItems = ({ addToDo, updateInputValue, value }) => {
+const addItems = ({ validateInput, updateInputValue, value }) => {
 
   return (
     <div className={classes.AddItems}>
       <input type="text" placeholder="Enter to-do" onChange={(evt) => updateInputValue(evt)} value={value}/>
-      <button onClick={addToDo}>Add Item</button>
+      <button onClick={validateInput}>Add Item</button>
     </div>
   );  
 }
